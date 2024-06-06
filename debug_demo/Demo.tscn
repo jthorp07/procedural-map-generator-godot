@@ -1,3 +1,39 @@
-[gd_scene format=3 uid="uid://ckue63w3dxhda"]
+[gd_scene load_steps=9 format=3 uid="uid://ckue63w3dxhda"]
+
+[ext_resource type="Script" path="res://debug_demo/Demo.gd" id="1_5pkgb"]
+[ext_resource type="Script" path="res://addons/procedural_world_generator/core/scripts/pwg_engine_config.gd" id="1_a4ywg"]
+[ext_resource type="TileSet" uid="uid://cdyric4jsjjql" path="res://addons/procedural_world_generator/default_assets/default_square_32x32_tileset.tres" id="3_vh8mr"]
+[ext_resource type="PackedScene" uid="uid://c6axvcq2tt3xk" path="res://debug_demo/player.tscn" id="4_h8wt8"]
+[ext_resource type="Script" path="res://addons/procedural_world_generator/core/scripts/pwg_world_generator.gd" id="5_ax8tk"]
+[ext_resource type="Script" path="res://addons/procedural_world_generator/core/engine/map_shape/pwg_hex_map_shape.gd" id="6_v6jv0"]
+
+[sub_resource type="TileSet" id="TileSet_2isqw"]
+terrain_set_0/mode = 0
+
+[sub_resource type="Resource" id="Resource_ijwd2"]
+script = ExtResource("6_v6jv0")
+side_length = 5
+wrap_horizontal = true
+wrap_vertical = false
 
 [node name="Demo" type="Node2D"]
+script = ExtResource("1_5pkgb")
+
+[node name="PWGEngineConfig" type="Node" parent="."]
+script = ExtResource("1_a4ywg")
+tileset = ExtResource("3_vh8mr")
+water_level = 5
+moisture_level = 4
+temperature_level = 4
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_2isqw")
+format = 2
+
+[node name="Player" parent="." instance=ExtResource("4_h8wt8")]
+
+[node name="PwgWorldGenerator" type="Node" parent="."]
+script = ExtResource("5_ax8tk")
+map_shape = 1
+_map_shape_config = SubResource("Resource_ijwd2")
+noise_scripts = 1

@@ -1,47 +1,31 @@
-class_name PWGEngine
+class_name PwgEngine
 extends Resource
-
 ## Parent node of the Procedural World Generator engine
 ## 
 ## Holds and exposes configuration values for world generation.[br]
 ## Also exposes methods methods that return a generated world using the[br]
 ## engine's current configuration.
-## 
-## @experimental
 
 # signals
 
 # enums
+## The shape of individual tiles on the map
 enum TileShape {
+	## Square tiles
 	SQUARE,
+	## Hexagonal tiles
 	HEXAGON,
 }
+
+
 # constants
 
-# @export variables
-@export_group("Tile Properties")
-@export var tileset: TileSet
-@export var tile_shape: TileShape
-## [b]IMPORTANT:[/b] See plugin docs (README.md) or examples on GitHub (if any are posted) for detailed instructions
-@export var biome_count: int = 3
-
-@export_group("World Generation Terrain Configuration")
-@export_subgroup("Default Configurables")
-## A value of 0 will result in a waterless world.[br]
-## A value of 10 will result in a landless world.
-@export_range(0, 10) var water_level
-@export_range(0, 10) var moisture_level
-@export_range(0, 10) var temperature_level
-@export_subgroup("Custom Configurables")
-@export var custom_worldgen_configs: Array[int] = [] # TODO: Refactor to WorldGenTerrainConfig
-
-# public variables
-
-# private variables
-
-# @onready variables
-
-
+var tileset: TileSet
+var tile_shape: TileShape
+var _noise_scripts: PwgNoiseScripts
+var _looper: CoordinateLooper = CoordinateLooper.new()
+var _tilemap: PwgTileMap
+var _land_cells: Array[Vector2i] = []
 # optional built-in virtual _init method
 
 # optional built-in virtual _enter_tree() method
@@ -51,7 +35,103 @@ enum TileShape {
 # remaining built-in virtual methods
 
 # public methods
+## Generates and returns a new world using the engine's[br]
+## current settings. The world is returned in a new [TileMap] node.
+func generate_world(seed: int, width: int, height: int, tilemap: TileMap) -> TileMap:
+	#var tilemap := TileMap.new()
+
+	# print("actual:\n%d\n%d\n%d" % [_noise_alt.seed, _noise_moisture.seed, _noise_temp.seed])
+	
+	tilemap.tile_set = tileset
+	tilemap.add_layer(1)
+	
+	var spawn := tilemap.local_to_map(Vector2(0, 0))
+	var land_cells: Array[Vector2i] = []
+	
+	for x in range(width):
+		for y in range(height):
+			var coords := Vector2i(spawn.x - width / 2 + x, spawn.y - height / 2 + y)
+			
+			var height_noise := _noise_scripts.noise_alt.get_noise_2dv(coords)
+			var moisture_noise := _noise_scripts.noise_moist.get_noise_2dv(coords)
+			var temp_noise := _noise_scripts.noise_temp.get_noise_2dv(coords)
+			
+			# if x == 100 and y == 100:
+				# print("100, 100:\n%f\n%f\n%f\n" % [height_noise, moisture_noise, temp_noise])
+			
+			if moisture_noise > .5:
+				land_cells.append(coords)
+				var atlas_coords := Vector2(min(round((moisture_noise + 10) / 5), 2), round((temp_noise + 10) / 5))
+				tilemap.set_cell(PwgTileMap.PwgTileMapLayer.BIOME, coords, 1, atlas_coords.floor())
+			else:
+				var atlas_coords := Vector2(3, round((temp_noise + 10) / 5))
+				tilemap.set_cell(0, coords, 1, atlas_coords.floor())
+			
+			# var height_noise := _noise_alt.get_noise_2dv(coords) * 150
+			# var moisture_noise := _noise_moisture.get_noise_2dv(coords) * 10
+			# var temp_noise := _noise_temp.get_noise_2dv(coords) * 10
+			
+			# if moisture_noise > .5:
+				# land_cells.append(coords)
+				# var atlas_coords := Vector2(min(round((moisture_noise + 10) / 5), 2), round((temp_noise + 10) / 5))
+				# tilemap.set_cell(0, coords, 1, atlas_coords.floor())
+			# else:
+				# var atlas_coords := Vector2(3, round((temp_noise + 10) / 5))
+				# tilemap.set_cell(0, coords, 1, atlas_coords.floor())
+	
+	tilemap.set_cells_terrain_connect(1, land_cells, 0, 0)
+	print("Land percent: %f\n" % [land_cells.size() / (float(width) * float(height))])
+	return tilemap
+
+
+func new_gen(width: int, height: int, tilemap: TileMap):
+	
+	# Init:
+	#		- Make script
+	#		- Set seeds
+	_tilemap.set_tilemap(tilemap)
+	_initialize_world_gen()
+	_looper.fill_map(width, height, _noise_scripts, _map_fill_lambda)
+	pass
+
+
+## Sets the engine's noise scripts to one of the sets of scripts[br]
+## defined in [enum PwgNoiseScripts.NoiseScripts] and [method PwgNoiseScripts.make_scripts].
+func set_scripts(script_type: PwgNoiseScripts.NoiseScripts):
+	_noise_scripts = PwgNoiseScripts.make_scripts(script_type)
+
 
 # private methods
+## Sets a random seed for all [class FastNoiseLite] instances in this [br]
+## instance's [member PwgEngine._noise_scripts]. Called at the beginning[br]
+## of world generation.
+func _initialize_world_gen():
+	seed(randi())
+	var seeds = Vector4(randi() / 100, randi() / 100, randi() / 100, randi() / 100)
+	_noise_scripts.noise_alt.seed = seeds.x
+	_noise_scripts.noise_moisture.seed = seeds.y
+	_noise_scripts.noise_temp.seed = seeds.z
+	_noise_scripts.noise_misc = seeds.w
+	pass
 
+
+## Function to be passed to [method CoordinateLooper.fill_map]. This method[br]
+## should be called and provided with noise values and coordinates for every[br]
+## tile in the map that should be generated.
+func _map_fill_lambda(x, y, altitude, moisture, temperature, misc):
+	
+	var coords = Vector2i(x, y)
+	if moisture > .5:
+		_land_cells.append(coords)
+		var atlas_coords := Vector2(min(round((moisture + 10) / 5), 2), round((temperature + 10) / 5))
+		_tilemap.set_cell(0, coords, 1, atlas_coords.floor())
+	else:
+		var atlas_coords := Vector2(3, round((temperature + 10) / 5))
+		_tilemap.set_cell(0, coords, 1, atlas_coords.floor())
+	_tilemap.set_cells_terrain_connect(1, _land_cells, 0, 0)
+	
+	# cleanup
+	_tilemap = null
+	_land_cells = []
+	pass
 # subclasses

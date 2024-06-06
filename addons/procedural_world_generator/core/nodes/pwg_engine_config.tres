@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PWGEngineConfig" load_steps=2 format=3 uid="uid://cdgsddefbi0w1"]
+
+[ext_resource type="Script" path="res://addons/procedural_world_generator/core/scripts/pwg_engine_config.gd" id="1_lafd1"]
+
+[resource]
+script = ExtResource("1_lafd1")
+tile_shape = null
+biome_count = null
+water_level = null
+moisture_level = null
+temperature_level = null
+custom_worldgen_configs = Array[int]([])

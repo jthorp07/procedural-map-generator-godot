@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="Procedural-map-generator-godot"
+run/main_scene="res://debug_demo/Demo.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+PwgGlobal="*res://addons/procedural_world_generator/core/global.gd"
 
 [editor]
 

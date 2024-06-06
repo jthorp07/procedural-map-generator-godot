@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://cjj1wwqlski3v"]
+
+[node name="PWGDock" type="BoxContainer"]
