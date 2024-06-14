@@ -1,10 +1,10 @@
 [gd_resource type="TileSet" load_steps=5 format=3 uid="uid://cdyric4jsjjql"]
 
-[ext_resource type="Texture2D" uid="uid://b21k0wrxc1tkj" path="res://addons/procedural_world_generator/default_assets/images/32x32_SimpleSquare.png" id="1_pmpqr"]
+[ext_resource type="Texture2D" uid="uid://b21k0wrxc1tkj" path="res://addons/procedural_world_generator/default_assets/images/32x32_SimpleSquare_TerrainAtlas.png" id="1_0178a"]
 [ext_resource type="Texture2D" uid="uid://cirnmbt43mdgx" path="res://addons/procedural_world_generator/default_assets/images/32x32_SimpleSquare_BiomeAtlas.png" id="2_am4xg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h14fv"]
-texture = ExtResource("1_pmpqr")
+texture = ExtResource("1_0178a")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/terrain_set = 0

@@ -15,7 +15,11 @@ extends PwgNoiseScripts
 
 
 func _init() -> void:
-	noise_misc = e_noise_misc
-	noise_alt = e_noise_alt
-	noise_moist = e_noise_moist
-	noise_temp = e_noise_temp
+	if e_noise_alt != null:
+		noise_alt = e_noise_alt
+	if e_noise_moist != null:
+		noise_moist = e_noise_moist
+	if e_noise_temp != null:
+		noise_temp = e_noise_temp
+	if e_noise_misc != null:
+		noise_misc = e_noise_misc

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b21k0wrxc1tkj"
-path="res://.godot/imported/32x32_SimpleSquare.png-277fbb5404756824a17b031134e73080.ctex"
+path="res://.godot/imported/32x32_SimpleSquare_TerrainAtlas.png-dae2898f5711e1730be4f9e266ece12d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/procedural_world_generator/default_assets/images/32x32_SimpleSquare.png"
-dest_files=["res://.godot/imported/32x32_SimpleSquare.png-277fbb5404756824a17b031134e73080.ctex"]
+source_file="res://addons/procedural_world_generator/default_assets/images/32x32_SimpleSquare_TerrainAtlas.png"
+dest_files=["res://.godot/imported/32x32_SimpleSquare_TerrainAtlas.png-dae2898f5711e1730be4f9e266ece12d.ctex"]
 
 [params]
 

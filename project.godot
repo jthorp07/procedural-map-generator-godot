@@ -26,7 +26,7 @@ version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/procedural_world_generator/plugin.cfg")
+enabled=PackedStringArray("res://addons/procedural_world_generator/plugin.cfg")
 
 [rendering]
 

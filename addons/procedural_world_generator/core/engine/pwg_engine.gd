@@ -22,10 +22,12 @@ enum TileShape {
 
 var tileset: TileSet
 var tile_shape: TileShape
-var _noise_scripts: PwgNoiseScripts
+var _noise_scripts: PwgNoiseScripts = PwgNoiseScripts.make_scripts(PwgNoiseScripts.NoiseScripts.DEFAULT)
 var _looper: CoordinateLooper = CoordinateLooper.new()
-var _tilemap: PwgTileMap
+var _tilemap_wrapper: PwgTileMap = PwgTileMap.new()
 var _land_cells: Array[Vector2i] = []
+var _tilemap_node: TileMap = null
+var _spawn: Vector2i
 # optional built-in virtual _init method
 
 # optional built-in virtual _enter_tree() method
@@ -89,9 +91,10 @@ func new_gen(width: int, height: int, tilemap: TileMap):
 	# Init:
 	#		- Make script
 	#		- Set seeds
-	_tilemap.set_tilemap(tilemap)
+	_tilemap_wrapper.set_tilemap(tilemap)
 	_initialize_world_gen()
 	_looper.fill_map(width, height, _noise_scripts, _map_fill_lambda)
+	_world_gen_cleanup()
 	pass
 
 
@@ -106,13 +109,33 @@ func set_scripts(script_type: PwgNoiseScripts.NoiseScripts):
 ## instance's [member PwgEngine._noise_scripts]. Called at the beginning[br]
 ## of world generation.
 func _initialize_world_gen():
+	
+	# Idk why but these values don't get initialized when they should be earlier
+	if _noise_scripts == null:
+		_noise_scripts = PwgNoiseScripts.make_scripts(PwgNoiseScripts.NoiseScripts.DEFAULT)
+	elif _noise_scripts.noise_alt == null:
+		print("had to reassign :(")
+		_noise_scripts.noise_misc = FastNoiseLite.new()
+		_noise_scripts.noise_alt = FastNoiseLite.new()
+		_noise_scripts.noise_moist = FastNoiseLite.new()
+		_noise_scripts.noise_temp = FastNoiseLite.new()
+		
+	# Seed all the noise scripts
 	seed(randi())
 	var seeds = Vector4(randi() / 100, randi() / 100, randi() / 100, randi() / 100)
 	_noise_scripts.noise_alt.seed = seeds.x
-	_noise_scripts.noise_moisture.seed = seeds.y
+	_noise_scripts.noise_moist.seed = seeds.y
 	_noise_scripts.noise_temp.seed = seeds.z
-	_noise_scripts.noise_misc = seeds.w
-	pass
+	_noise_scripts.noise_misc.seed = seeds.w
+	
+	# Set tilemap node to fill
+	_tilemap_node = _tilemap_wrapper.get_tilemap()
+
+
+func _world_gen_cleanup():
+	# cleanup
+	_tilemap_node = null
+	_land_cells = []
 
 
 ## Function to be passed to [method CoordinateLooper.fill_map]. This method[br]
@@ -124,14 +147,11 @@ func _map_fill_lambda(x, y, altitude, moisture, temperature, misc):
 	if moisture > .5:
 		_land_cells.append(coords)
 		var atlas_coords := Vector2(min(round((moisture + 10) / 5), 2), round((temperature + 10) / 5))
-		_tilemap.set_cell(0, coords, 1, atlas_coords.floor())
+		_tilemap_node.set_cell(0, coords, 1, atlas_coords.floor())
 	else:
 		var atlas_coords := Vector2(3, round((temperature + 10) / 5))
-		_tilemap.set_cell(0, coords, 1, atlas_coords.floor())
-	_tilemap.set_cells_terrain_connect(1, _land_cells, 0, 0)
-	
-	# cleanup
-	_tilemap = null
-	_land_cells = []
-	pass
+		_tilemap_node.set_cell(0, coords, 1, atlas_coords.floor())
+	_tilemap_node.set_cells_terrain_connect(1, _land_cells, 0, 0)
+
+
 # subclasses

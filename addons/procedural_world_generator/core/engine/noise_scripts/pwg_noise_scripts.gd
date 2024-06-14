@@ -26,10 +26,11 @@ var noise_temp: FastNoiseLite
 
 
 func _init() -> void:
-	noise_misc = FastNoiseLite.new()
-	noise_alt = FastNoiseLite.new()
-	noise_moist = FastNoiseLite.new()
-	noise_temp = FastNoiseLite.new()
+	print("double make")
+	self.noise_misc = FastNoiseLite.new()
+	self.noise_alt = FastNoiseLite.new()
+	self.noise_moist = FastNoiseLite.new()
+	self.noise_temp = FastNoiseLite.new()
 
 
 static func make_scripts(script_type: NoiseScripts) -> PwgNoiseScripts:
@@ -42,3 +43,56 @@ static func make_scripts(script_type: NoiseScripts) -> PwgNoiseScripts:
 			return PwgGrandRiversNoise.new()
 		_:
 			return PwgNoiseScripts.new()
+
+
+## Guestimated/approximated noise values at certain percentiles[br]
+## for this instance's [class FastNoiseLite] configurations.[br]
+## Should be overridden by inheriting classes.[br]
+## [WARNING]: These values are only estimates. For further details[br]
+## about how the estimates were made, see TODO: Put methodology somewhere o-o
+func get_percentile_value(percentile: int) -> float:
+	match percentile:
+		5:
+			return -0.4
+		10:
+			return -0.32
+		15:
+			return -0.28
+		20:
+			return -0.22
+		25:
+			return -0.18
+		30:
+			return -0.14
+		35:
+			return -0.105
+		40:
+			return 0.0
+		45:
+			return 0.0
+		50:
+			return 0.0
+		55:
+			return 0.0
+		60:
+			return 0.0
+		65:
+			return 0.0
+		70:
+			return 0.0
+		75:
+			return 0.0
+		80:
+			return 0.0
+		85:
+			return 0.0
+		90:
+			return 0.0
+		95:
+			return 0.0
+		100:
+			return 0.0
+		_:
+			return -99.99
+			
+	return 0.0
