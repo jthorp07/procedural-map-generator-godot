@@ -67,9 +67,9 @@ func get_percentile_value(percentile: int) -> float:
 		35:
 			return -0.105
 		40:
-			return 0.0
+			return -0.075
 		45:
-			return 0.0
+			return -0.042
 		50:
 			return 0.0
 		55:
