@@ -8,5 +8,7 @@ extends PwgNoiseScripts
 
 
 func _init() -> void:
+	super._init()
 	noise_alt.fractal_type = FastNoiseLite.FRACTAL_RIDGED
 	noise_alt.fractal_octaves = river_frequency_weight
+	noise_alt.frequency = .002 * river_width_weight

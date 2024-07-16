@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://cynxwjv1rw3b8"]
+
+[node name="ProceduralWorldGenerator" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 1148.0
+offset_bottom = 647.0
+
+[node name="Panel" type="Panel" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="GeneralWorldConfigOptions" type="VBoxContainer" parent="PanelContainer/TabContainer"]
+layout_mode = 2
+
+[node name="WorldSizeOption" type="HBoxContainer" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="SizeOptionLabel" type="Label" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/WorldSizeOption"]
+layout_mode = 2
+text = "World Size"
+
+[node name="WorldHeight" type="VBoxContainer" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/WorldSizeOption"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HeightLabel" type="Label" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/WorldSizeOption/WorldHeight"]
+layout_mode = 2
+text = "Height"
+
+[node name="HeightManualInput" type="TextEdit" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/WorldSizeOption/WorldHeight"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "75"
+placeholder_text = "75"
+
+[node name="HeightSlider" type="HScrollBar" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/WorldSizeOption/WorldHeight"]
+layout_mode = 2
+min_value = 1.0
+max_value = 250.0
+step = 1.0
+value = 1.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+
+[node name="WorldWidth" type="VBoxContainer" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/WorldSizeOption"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WidthLabel" type="Label" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/WorldSizeOption/WorldWidth"]
+layout_mode = 2
+text = "Width"
+
+[node name="WidthManualInput" type="TextEdit" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/WorldSizeOption/WorldWidth"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "100"
+placeholder_text = "100"
+
+[node name="WidthSlider" type="HScrollBar" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/WorldSizeOption/WorldWidth"]
+layout_mode = 2
+min_value = 1.0
+max_value = 250.0
+step = 1.0
+value = 1.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+
+[node name="MapScriptOption" type="HBoxContainer" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions"]
+layout_mode = 2
+
+[node name="MapScriptLabel" type="Label" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/MapScriptOption"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Map Script"
+
+[node name="ItemList" type="ItemList" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/MapScriptOption"]
+layout_mode = 2
+size_flags_horizontal = 3
+allow_reselect = true
+allow_search = false
+auto_height = true
+item_count = 2
+item_0/text = "Default"
+item_1/text = "Rivers"

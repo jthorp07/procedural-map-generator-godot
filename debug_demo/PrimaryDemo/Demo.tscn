@@ -1,12 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://ckue63w3dxhda"]
 
-[ext_resource type="Script" path="res://debug_demo/Demo.gd" id="1_5pkgb"]
-[ext_resource type="PackedScene" uid="uid://c6axvcq2tt3xk" path="res://debug_demo/player.tscn" id="4_h8wt8"]
+[ext_resource type="Script" path="res://debug_demo/PrimaryDemo/Demo.gd" id="1_5pkgb"]
+[ext_resource type="TileSet" uid="uid://cdyric4jsjjql" path="res://addons/procedural_world_generator/default_assets/default_square_32x32_tileset.tres" id="2_ahxoj"]
 [ext_resource type="Script" path="res://addons/procedural_world_generator/core/scripts/pwg_world_generator.gd" id="5_ax8tk"]
+[ext_resource type="Script" path="res://addons/procedural_world_generator/core/scripts/map_camera.gd" id="5_myl53"]
 [ext_resource type="Script" path="res://addons/procedural_world_generator/core/engine/map_shape/pwg_hex_map_shape.gd" id="6_v6jv0"]
-
-[sub_resource type="TileSet" id="TileSet_2isqw"]
-terrain_set_0/mode = 0
 
 [sub_resource type="Resource" id="Resource_ijwd2"]
 script = ExtResource("6_v6jv0")
@@ -18,13 +16,14 @@ wrap_vertical = false
 script = ExtResource("1_5pkgb")
 
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = SubResource("TileSet_2isqw")
+tile_set = ExtResource("2_ahxoj")
 format = 2
-
-[node name="Player" parent="." instance=ExtResource("4_h8wt8")]
 
 [node name="PwgWorldGenerator" type="Node" parent="."]
 script = ExtResource("5_ax8tk")
 map_shape = 1
 _map_shape_config = SubResource("Resource_ijwd2")
 noise_scripts = 1
+
+[node name="MapCamera" type="Camera2D" parent="."]
+script = ExtResource("5_myl53")

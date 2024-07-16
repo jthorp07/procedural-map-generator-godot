@@ -18,10 +18,11 @@ enum Loopers {
 var looper: Callable = func(width: int, height: int, scripts: PwgNoiseScripts, filler_lambda: Callable):
 	for x in range(width):
 		for y in range(height):
-			var altitude = scripts.noise_alt.get_noise_2d(x, y)
-			var moisture = scripts.noise_moist.get_noise_2d(x, y)
-			var temperature = scripts.noise_temp.get_noise_2d(x, y)
-			var misc = scripts.noise_misc.get_noise_2d(x, y)
+			var altitude = NoiseScriptUtils.scale_noise(scripts.noise_alt.get_noise_2d(x, y))
+			var moisture = NoiseScriptUtils.scale_noise(scripts.noise_moist.get_noise_2d(x, y))
+			var temperature = NoiseScriptUtils.scale_noise(scripts.noise_temp.get_noise_2d(x, y))
+			var misc = NoiseScriptUtils.scale_noise(scripts.noise_misc.get_noise_2d(x, y))
+			#print("Alt: %f, Mst: %f, Tmp: %f, Msc: %f\n" % [altitude, moisture, temperature, misc])
 			filler_lambda.call(x, y, altitude, moisture, temperature, misc)
 
 
