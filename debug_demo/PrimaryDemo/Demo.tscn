@@ -2,13 +2,12 @@
 
 [ext_resource type="Script" path="res://debug_demo/PrimaryDemo/Demo.gd" id="1_5pkgb"]
 [ext_resource type="TileSet" uid="uid://cdyric4jsjjql" path="res://addons/procedural_world_generator/default_assets/default_square_32x32_tileset.tres" id="2_ahxoj"]
+[ext_resource type="Script" path="res://addons/procedural_world_generator/core/engine/map_shape/pwg_map_shape.gd" id="4_aiert"]
 [ext_resource type="Script" path="res://addons/procedural_world_generator/core/scripts/pwg_world_generator.gd" id="5_ax8tk"]
 [ext_resource type="Script" path="res://addons/procedural_world_generator/core/scripts/map_camera.gd" id="5_myl53"]
-[ext_resource type="Script" path="res://addons/procedural_world_generator/core/engine/map_shape/pwg_hex_map_shape.gd" id="6_v6jv0"]
 
-[sub_resource type="Resource" id="Resource_ijwd2"]
-script = ExtResource("6_v6jv0")
-side_length = 5
+[sub_resource type="Resource" id="Resource_id2sj"]
+script = ExtResource("4_aiert")
 wrap_horizontal = true
 wrap_vertical = false
 
@@ -21,9 +20,8 @@ format = 2
 
 [node name="PwgWorldGenerator" type="Node" parent="."]
 script = ExtResource("5_ax8tk")
-map_shape = 1
-_map_shape_config = SubResource("Resource_ijwd2")
-noise_scripts = 1
+_map_shape_config = SubResource("Resource_id2sj")
+noise_scripts = 2
 
 [node name="MapCamera" type="Camera2D" parent="."]
 script = ExtResource("5_myl53")

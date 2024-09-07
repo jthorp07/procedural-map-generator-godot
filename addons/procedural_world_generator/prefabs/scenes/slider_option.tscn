@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://ida6ik2ruc3i"]
+
+[ext_resource type="Script" path="res://addons/procedural_world_generator/prefabs/scripts/slider_option.gd" id="1_1c7ij"]
+
+[node name="SliderOption" type="VBoxContainer"]
+size_flags_horizontal = 3
+script = ExtResource("1_1c7ij")
+
+[node name="LabelAndInputBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ValueLabel" type="Label" parent="LabelAndInputBox"]
+layout_mode = 2
+text = "Height"
+
+[node name="ValueManualInput" type="LineEdit" parent="LabelAndInputBox"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "75"
+placeholder_text = "75"
+
+[node name="ValueSlider" type="HScrollBar" parent="."]
+layout_mode = 2
+min_value = 1.0
+max_value = 250.0
+step = 1.0
+value = 1.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+
+[connection signal="text_submitted" from="LabelAndInputBox/ValueManualInput" to="." method="_on_value_manual_input_text_submitted"]
+[connection signal="value_changed" from="ValueSlider" to="." method="_on_value_slider_value_changed"]

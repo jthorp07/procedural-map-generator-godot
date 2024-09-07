@@ -1,0 +1,110 @@
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://bftil3a3yve4g"]
+
+[ext_resource type="StyleBox" uid="uid://cqpwqaw74ilfi" path="res://addons/procedural_world_generator/prefabs/theme/theme_components/stylebox_primary.tres" id="1_3m3w2"]
+[ext_resource type="StyleBox" uid="uid://c43pkkpdgefg2" path="res://addons/procedural_world_generator/prefabs/theme/theme_components/stylebox_disabled.tres" id="1_adcu4"]
+[ext_resource type="StyleBox" uid="uid://6dki7xjfrk50" path="res://addons/procedural_world_generator/prefabs/theme/theme_components/stylebox_focus.tres" id="2_a1wo5"]
+[ext_resource type="StyleBox" uid="uid://kgdhwg4rue1" path="res://addons/procedural_world_generator/prefabs/theme/theme_components/stylebox_container.tres" id="2_wbxrp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1opuj"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0.709804, 0.490196, 1)
+border_width_left = 3
+border_width_bottom = 3
+border_color = Color(0, 0.482353, 0.32549, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(1, 1, 1, 0.6)
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jn12n"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0.709804, 0.490196, 1)
+border_color = Color(0, 0.482353, 0.32549, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(1, 1, 1, 0.6)
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h7mja"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.333333, 0.196078, 0, 1)
+border_color = Color(0, 0.482353, 0.32549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hpjdi"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0.443137, 0.298039, 1)
+border_color = Color(0, 0.482353, 0.32549, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pp0a7"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0.584314, 0.4, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.482353, 0.32549, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+shadow_color = Color(1, 1, 1, 0.6)
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ta7fw"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0.709804, 0.490196, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_color = Color(0, 0.482353, 0.32549, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ajikw"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0.584314, 0.4, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_color = Color(0, 0.482353, 0.32549, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[resource]
+Button/styles/disabled = ExtResource("1_adcu4")
+Button/styles/focus = ExtResource("2_a1wo5")
+Button/styles/hover = SubResource("StyleBoxFlat_1opuj")
+Button/styles/normal = ExtResource("1_3m3w2")
+Button/styles/pressed = SubResource("StyleBoxFlat_jn12n")
+Panel/styles/panel = SubResource("StyleBoxFlat_h7mja")
+TabContainer/styles/panel = ExtResource("2_wbxrp")
+TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_hpjdi")
+TabContainer/styles/tab_focus = ExtResource("2_a1wo5")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_pp0a7")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_ta7fw")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_ajikw")

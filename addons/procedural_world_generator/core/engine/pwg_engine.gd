@@ -28,7 +28,7 @@ var _land_cells: Array[Vector2i] = []
 var _tilemap_node: TileMap = null
 var _spawn: Vector2i
 
-var land_percent: int = 85
+var land_percent: int = 90
 var _land_threshold: float = NoiseScriptUtils.get_percentile_value(land_percent)
 var _atlas_divisor_x: float = 20.0 / 2.0
 var _atlas_divisor_y: float = 20.0 / 3.0
@@ -94,16 +94,12 @@ func generate_world(seed: int, width: int, height: int, tilemap: TileMap) -> Til
 
 func new_gen(width: int, height: int, tilemap: TileMap):
 	
-	# Init:
-	#		- Make script
-	#		- Set seeds
 	_initialize_world_gen(width, height, tilemap)
 	_looper.fill_map(width, height, _noise_scripts, _map_fill_lambda)
 	_tilemap_node.set_cells_terrain_connect(1, _land_cells, 0, 0)
 	print("Land percent: %f\n" % [_land_cells.size() / (float(width) * float(height))])
 	print("Land cells: %d    Nonland cells: %d    Total cells: %d\n" % [_land_cells.size(), (width * height) - _land_cells.size(), width * height])
 	_world_gen_cleanup()
-	pass
 
 
 ## Sets the engine's noise scripts to one of the sets of scripts[br]
@@ -173,4 +169,3 @@ func _make_map_fill_lambda(land_percentile: int) -> Callable:
 			var atlas_coords := Vector2(3, round((temperature + 10) / 5))
 			_tilemap_node.set_cell(0, coords, 1, atlas_coords.floor())
 		_tilemap_node.set_cells_terrain_connect(1, _land_cells, 0, 0)
-# subclasses

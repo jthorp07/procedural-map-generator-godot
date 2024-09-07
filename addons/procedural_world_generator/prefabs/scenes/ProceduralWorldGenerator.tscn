@@ -1,4 +1,8 @@
-[gd_scene format=3 uid="uid://cynxwjv1rw3b8"]
+[gd_scene load_steps=4 format=3 uid="uid://cynxwjv1rw3b8"]
+
+[ext_resource type="Theme" uid="uid://bftil3a3yve4g" path="res://addons/procedural_world_generator/prefabs/theme/prefab_gui_theme.tres" id="1_1a4ll"]
+[ext_resource type="PackedScene" uid="uid://ida6ik2ruc3i" path="res://addons/procedural_world_generator/prefabs/scenes/slider_option.tscn" id="2_rd3f7"]
+[ext_resource type="Script" path="res://addons/procedural_world_generator/prefabs/scripts/procedural_world_generator.gd" id="2_se8jm"]
 
 [node name="ProceduralWorldGenerator" type="Control"]
 layout_mode = 3
@@ -7,6 +11,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_1a4ll")
+script = ExtResource("2_se8jm")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
@@ -30,53 +36,19 @@ size_flags_vertical = 0
 layout_mode = 2
 text = "World Size"
 
-[node name="WorldHeight" type="VBoxContainer" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/WorldSizeOption"]
+[node name="WorldHeight" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/WorldSizeOption" instance=ExtResource("2_rd3f7")]
 layout_mode = 2
-size_flags_horizontal = 3
+value = 75
+value_name = &"Height"
+minimum = 1
+maximum = 200
 
-[node name="HeightLabel" type="Label" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/WorldSizeOption/WorldHeight"]
+[node name="WorldWidth" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/WorldSizeOption" instance=ExtResource("2_rd3f7")]
 layout_mode = 2
-text = "Height"
-
-[node name="HeightManualInput" type="TextEdit" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/WorldSizeOption/WorldHeight"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-text = "75"
-placeholder_text = "75"
-
-[node name="HeightSlider" type="HScrollBar" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/WorldSizeOption/WorldHeight"]
-layout_mode = 2
-min_value = 1.0
-max_value = 250.0
-step = 1.0
-value = 1.0
-rounded = true
-allow_greater = true
-allow_lesser = true
-
-[node name="WorldWidth" type="VBoxContainer" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/WorldSizeOption"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="WidthLabel" type="Label" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/WorldSizeOption/WorldWidth"]
-layout_mode = 2
-text = "Width"
-
-[node name="WidthManualInput" type="TextEdit" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/WorldSizeOption/WorldWidth"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-text = "100"
-placeholder_text = "100"
-
-[node name="WidthSlider" type="HScrollBar" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/WorldSizeOption/WorldWidth"]
-layout_mode = 2
-min_value = 1.0
-max_value = 250.0
-step = 1.0
-value = 1.0
-rounded = true
-allow_greater = true
-allow_lesser = true
+value = 100
+value_name = &"Width"
+minimum = 1
+maximum = 500
 
 [node name="MapScriptOption" type="HBoxContainer" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions"]
 layout_mode = 2
@@ -95,3 +67,16 @@ auto_height = true
 item_count = 2
 item_0/text = "Default"
 item_1/text = "Rivers"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions"]
+layout_mode = 2
+size_flags_vertical = 10
+alignment = 1
+
+[node name="CreateWorldBtn" type="Button" parent="PanelContainer/TabContainer/GeneralWorldConfigOptions/HBoxContainer"]
+layout_mode = 2
+text = "Create World"
+
+[node name="MapScriptOptions" type="VBoxContainer" parent="PanelContainer/TabContainer"]
+visible = false
+layout_mode = 2
